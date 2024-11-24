@@ -1,0 +1,11 @@
+pipeline {
+    agent any
+    stages {
+        stage('Run Disk Utilization Script') {
+            steps {
+                // Run your shell script
+                sh './ShellScripts_For_Pipeline/Disk_Utilisation.sh'
+            }
+        }
+    }
+}
