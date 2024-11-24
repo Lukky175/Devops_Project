@@ -1,10 +1,19 @@
 pipeline {
     agent any
     stages {
-        stage('Run Disk Utilization Script') {
+        stage('Check Disk Utilization') {
             steps {
-                // Run your shell script
-                sh './ShellScripts_For_Pipeline/Disk_Utilisation.sh'
+                script {
+                    // Running disk usage check in a shell script
+                    sh '''
+                        DISK_USAGE=$(df -h / | grep '/' | awk '{print $5}' | sed 's/%//')
+                        echo "Disk Usage: $DISK_USAGE%"
+                        if [ "$DISK_USAGE" -gt 80 ]; then
+                            echo "Disk usage is greater than 80%, sending an email notification"
+                            # Add your email command or any action here
+                        fi
+                    '''
+                }
             }
         }
     }
