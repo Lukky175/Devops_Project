@@ -2,18 +2,30 @@ pipeline {
     agent any
 
     stages {
-        stage('Check Disk Utilization') {
+        stage('Checkout SCM') {
+            steps {
+                git 'https://github.com/Lukky175/Devops_Project.git'
+            }
+        }
+
+        stage('Run Disk Utilization Script') {
             steps {
                 script {
-                    // Ensure you use a proper shell command
-                    sh """
-                        DISK_USAGE=\$(df -h / | grep '/' | awk '{print \$5}' | sed 's/%//')
-                        echo "Disk Usage: \$DISK_USAGE%"
-                        if [ \$DISK_USAGE -gt 80 ]; then
-                            echo "Disk usage is greater than 80%, sending an email notification"
-                            # Add your email sending logic here, for example, using mailx
-                        fi
-                    """
+                    // Ensure the Disk Utilization script is executable
+                    sh 'chmod +x ./ShellScripts_For_Pipeline/Disk_Utilisation.sh'
+                    // Run the Disk Utilization script
+                    sh './ShellScripts_For_Pipeline/Disk_Utilisation.sh'
+                }
+            }
+        }
+
+        stage('Run Process Management Script') {
+            steps {
+                script {
+                    // Ensure the Process Management script is executable
+                    sh 'chmod +x ./ShellScripts_For_Pipeline/processmanagement.sh'
+                    // Run the Process Management script
+                    sh './ShellScripts_For_Pipeline/processmanagement.sh'
                 }
             }
         }
