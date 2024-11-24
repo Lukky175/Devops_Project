@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#Check disk utilization
+DISK_USAGE=$(df -h / | grep '/' | awk '{print $5}' | sed 's/%//')
+
+#If Condition
+if [ "$DISK_USAGE" -gt 80 ]; then
+    echo "Disk usage is above 80%: Current usage is ${DISK_USAGE}%" | mail -s "Disk Utilization Alert" "lakshit175@gmail.com"
+else
+    echo "Disk utilization is under control: ${DISK_USAGE}%"
+fi
