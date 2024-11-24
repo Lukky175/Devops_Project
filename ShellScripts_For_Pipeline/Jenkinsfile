@@ -5,15 +5,15 @@ pipeline {
         stage('Check Disk Utilization') {
             steps {
                 script {
-                    // Running disk usage check inside a sh step
-                    sh '''
-                        DISK_USAGE=$(df -h / | grep '/' | awk '{print $5}' | sed 's/%//')
-                        echo "Disk Usage: $DISK_USAGE%"
-                        if [ "$DISK_USAGE" -gt 80 ]; then
+                    // Ensure you use a proper shell command
+                    sh """
+                        DISK_USAGE=\$(df -h / | grep '/' | awk '{print \$5}' | sed 's/%//')
+                        echo "Disk Usage: \$DISK_USAGE%"
+                        if [ \$DISK_USAGE -gt 80 ]; then
                             echo "Disk usage is greater than 80%, sending an email notification"
-                            # Add your email command here or any other action you want to take
+                            # Add your email sending logic here, for example, using mailx
                         fi
-                    '''
+                    """
                 }
             }
         }
