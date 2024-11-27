@@ -1,6 +1,6 @@
 #!/bin/bash
 
-THRESHOLD=80  # Set the threshold to 80% for disk usage
+THRESHOLD=2  # Set the threshold to 80% for disk usage
 
 echo "This Email Is Regards To The Disk Usage and System Health Check"
 echo " "
