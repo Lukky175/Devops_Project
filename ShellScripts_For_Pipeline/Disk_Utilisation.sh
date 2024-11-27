@@ -18,7 +18,7 @@ echo "Current disk usage of root directory: ${USAGE}%"
 if [ "$USAGE" -gt "$THRESHOLD" ]; then
     echo "Disk usage critical: ${USAGE}% (Threshold: ${THRESHOLD}%)"
     # Attempt to send email
-    echo "Disk usage critical: ${USAGE}% (Threshold: ${THRESHOLD}%)" | mail -s "Disk Usage Alert" lakshit175@gmail.com
+    echo "Disk usage critical: ${USAGE}% (Threshold: ${THRESHOLD}%)"
     
     if [ $? -eq 0 ]; then
         echo "Email sent successfully."
