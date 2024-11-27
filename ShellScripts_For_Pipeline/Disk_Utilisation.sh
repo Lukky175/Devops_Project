@@ -1,6 +1,6 @@
 #!/bin/bash
 
-THRESHOLD=80  # Set the threshold to 80% for disk usage
+THRESHOLD=2  # Set the threshold to 80% for disk usage
 
 echo "This Email Is Regards To The Disk Usage"
 echo " "
@@ -17,7 +17,14 @@ echo "Current disk usage of root directory: ${USAGE}%"
 
 if [ "$USAGE" -gt "$THRESHOLD" ]; then
     echo "Disk usage critical: ${USAGE}% (Threshold: ${THRESHOLD}%)"
-    # You can add the mail sending functionality here if needed.
+    # Attempt to send email
+    echo "Disk usage critical: ${USAGE}% (Threshold: ${THRESHOLD}%)" | mail -s "Disk Usage Alert" lakshit175@gmail.com
+    
+    if [ $? -eq 0 ]; then
+        echo "Email sent successfully."
+    else
+        echo "Failed to send email."
+    fi
     exit 1 # Non-zero exit code for critical disk usage
 else
     echo "Disk usage is under control: ${USAGE}% (Threshold: ${THRESHOLD}%)"
